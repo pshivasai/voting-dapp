@@ -54,13 +54,269 @@
   </div>
 
   <script>
-    const votersContractAddress = "0xYourVotersContractAddress";
-    const candidatesContractAddress = "0xYourCandidatesContractAddress";
-    const votingContractAddress = "0xYourVotingContractAddress";
+    const votersContractAddress = "0x76ab217C3f19f826bB3Ef0E345Dc26606027e545";
+    const candidatesContractAddress = "0xf5479FC614e34a0236b97552118D4Dbd0A599706";
+    const votingContractAddress = "0xc31329682e992f72e1618eA76594533Cefe72881";
 
-    const votersABI = []; // Paste your voters.sol ABI here
-    const candidatesABI = []; // Paste your candidates.sol ABI here
-    const votingABI = []; // Paste your voting.sol ABI here
+    const votersABI = [[
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_rollno",
+				"type": "string"
+			}
+		],
+		"name": "createVoter",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "voters",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "rollno",
+				"type": "string"
+			},
+			{
+				"internalType": "uint8",
+				"name": "voteStatus",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]]; // Paste your voters.sol ABI here
+    const candidatesABI = [[
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_rollno",
+				"type": "string"
+			}
+		],
+		"name": "createCandidate",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_rollno",
+				"type": "string"
+			}
+		],
+		"name": "createVoter",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "candidates",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "rollno",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "voteCount",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "voters",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "rollno",
+				"type": "string"
+			},
+			{
+				"internalType": "uint8",
+				"name": "voteStatus",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]] ;
+    const votingABI = [[
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_rollno",
+				"type": "string"
+			}
+		],
+		"name": "createCandidate",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_rollno",
+				"type": "string"
+			}
+		],
+		"name": "createVoter",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_voterRollno",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_candidateRollno",
+				"type": "string"
+			}
+		],
+		"name": "voting",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "candidates",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "rollno",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "voteCount",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "voters",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "rollno",
+				"type": "string"
+			},
+			{
+				"internalType": "uint8",
+				"name": "voteStatus",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]]; // Paste your voting.sol ABI here
 
     let walletAddress = "";
     let provider, signer;
