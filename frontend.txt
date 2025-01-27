@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DApp - Voting System</title>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.6.0/dist/ethers.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 20px;
+    }
+    .btn {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Simple Voting DApp</h1>
+  <div id="step-1">
+    <h2>Step 1: Connect Wallet</h2>
+    <button class="btn" onclick="connectWallet()">Connect Wallet</button>
+    <p id="wallet-address"></p>
+  </div>
+  
+  <div id="step-2" class="hidden">
+    <h2>Step 2: Enroll as a Voter</h2>
+    <button class="btn" onclick="enrollVoter()">Enroll</button>
+    <p id="enrollment-status"></p>
+  </div>
+  
+  <div id="step-3" class="hidden">
+    <h2>Step 3: Apply as Candidate</h2>
+    <button class="btn" onclick="applyAsCandidate()">Apply</button>
+    <p id="application-status"></p>
+  </div>
+  
+  <div id="step-4" class="hidden">
+    <h2>Step 4: Vote for a Candidate</h2>
+    <ul id="candidates-list"></ul>
+    <button class="btn" onclick="castVote()">Vote</button>
+  </div>
+
+  <script>
+    const votersContractAddress = "0xYourVotersContractAddress";
+    const candidatesContractAddress = "0xYourCandidatesContractAddress";
+    const votingContractAddress = "0xYourVotingContractAddress";
+
+    const votersABI = []; // Paste your voters.sol ABI here
+    const candidatesABI = []; // Paste your candidates.sol ABI here
+    const votingABI = []; // Paste your voting.sol ABI here
+
+    let walletAddress = "";
+    let provider, signer;
+
+    async function connectWallet() {
+      if (window.ethereum) {
+        const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+        walletAddress = accounts[0];
+        provider = new ethers.BrowserProvider(window.ethereum);
+        signer = provider.getSigner();
+        document.getElementById("wallet-address").innerText = `Connected: ${walletAddress}`;
+        document.getElementById("step-2").classList.remove("hidden");
+      } else {
+        alert("Please install MetaMask!");
+      }
+    }
+
+    async function enrollVoter() {
+      const votersContract = new ethers.Contract(votersContractAddress, votersABI, signer);
+      try {
+        const tx = await votersContract.enroll();
+        await tx.wait();
+        document.getElementById("enrollment-status").innerText = "You are enrolled as a voter!";
+        document.getElementById("step-3").classList.remove("hidden");
+      } catch (err) {
+        console.error(err);
+        alert("Enrollment failed.");
+      }
+    }
+
+    async function applyAsCandidate() {
+      const candidatesContract = new ethers.Contract(candidatesContractAddress, candidatesABI, signer);
+      try {
+        const tx = await candidatesContract.apply();
+        await tx.wait();
+        document.getElementById("application-status").innerText = "You have applied as a candidate!";
+        document.getElementById("step-4").classList.remove("hidden");
+        fetchCandidates(); // Fetch candidates for the voting screen
+      } catch (err) {
+        console.error(err);
+        alert("Application failed.");
+      }
+    }
+
+    async function fetchCandidates() {
+      const votingContract = new ethers.Contract(votingContractAddress, votingABI, provider);
+      try {
+        const candidates = await votingContract.getCandidates();
+        const candidatesList = document.getElementById("candidates-list");
+        candidatesList.innerHTML = "";
+        candidates.forEach((candidate, index) => {
+          const li = document.createElement("li");
+          li.innerHTML = `<input type="radio" name="candidate" value="${index}"> ${candidate}`;
+          candidatesList.appendChild(li);
+        });
+      } catch (err) {
+        console.error(err);
+        alert("Failed to fetch candidates.");
+      }
+    }
+
+    async function castVote() {
+      const selectedCandidate = document.querySelector('input[name="candidate"]:checked');
+      if (!selectedCandidate) {
+        alert("Please select a candidate.");
+        return;
+      }
+      const votingContract = new ethers.Contract(votingContractAddress, votingABI, signer);
+      try {
+        const tx = await votingContract.vote(selectedCandidate.value);
+        await tx.wait();
+        alert("Vote cast successfully!");
+      } catch (err) {
+        console.error(err);
+        alert("Voting failed.");
+      }
+    }
+  </script>
+</body>
+</html>
+

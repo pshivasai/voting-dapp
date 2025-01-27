@@ -1,0 +1,148 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "candidates",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "rollno",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "voteCount",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_rollno",
+						"type": "string"
+					}
+				],
+				"name": "createCandidate",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_rollno",
+						"type": "string"
+					}
+				],
+				"name": "createVoter",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "voters",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "rollno",
+						"type": "string"
+					},
+					{
+						"internalType": "uint8",
+						"name": "voteStatus",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/candidates.sol": "Candidates"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/candidates.sol": {
+			"keccak256": "0xb8cebbe396b339d46e8cc9ca2b1786e2afda7ba23e9755d689239e583a2e57f4",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://99fecab2a75c5ee5fc9f2a0ee7f955fff9f6f31e74f185872335f8a20ef083dc",
+				"dweb:/ipfs/QmRB1oj9Z7mbXk8ZsDvj5JipRyPViJBTJFw5bAywinZJiS"
+			]
+		},
+		"contracts/voter.sol": {
+			"keccak256": "0x0a4d0969f6d8e3a6651fd78695e8706d51c0d3a7d7897f90053faefb1ff098e7",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://040ea8e460dc5983a658cab9eb1fd5c39516acf16686c46cf27237341efd6f0e",
+				"dweb:/ipfs/QmZhcEwPBYo5uTYmdgVShirU4Jh1nEfjwHDA5DyGwA6pkG"
+			]
+		}
+	},
+	"version": 1
+}
